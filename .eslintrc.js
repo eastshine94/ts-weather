@@ -1,18 +1,3 @@
-/*
-  cra does not support eslint@8 yet
-
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.5.0",
-    "@typescript-eslint/parser": "^5.5.0",
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb": "^19.0.2",
-    "eslint-config-airbnb-typescript": "^16.1.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.5.1"
-  }
-*/
-
 module.exports = {
   root: true,
   env: {
@@ -101,7 +86,7 @@ module.exports = {
   },
   ignorePatterns: [
     '.*',
-    '*.config.js',
+    '!.config.js',
     '*.config.ts',
     '!.eslintrc.js',
     'node_modules',
