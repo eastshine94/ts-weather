@@ -1,28 +1,19 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import GlobalContextWrapper from 'context/GlobalContextWrapper';
+import Home from 'pages/Home';
+import ReactQueryTest from 'pages/ReactQueryTest';
 
 function App() {
-  // const [data, setData] = useState<any>();
-
-  useEffect(() => {
-    const fetch = async () => {
-      await axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/weather?q=seoul&appid=${
-            process.env.REACT_APP_API_KEY || 'kkk'
-          }`
-        )
-        .then((res) => {
-          console.log(res.data);
-          // setData(res.data);
-        });
-    };
-    void fetch();
-  }, []);
   return (
-    <div className="p-5 border border-red-400">
-      <div>TEST</div>
-    </div>
+    <BrowserRouter>
+      <GlobalContextWrapper>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="test" element={<ReactQueryTest />} />
+        </Routes>
+      </GlobalContextWrapper>
+    </BrowserRouter>
   );
 }
 
