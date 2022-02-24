@@ -1,3 +1,1 @@
-import { AxiosResponse } from 'axios';
-
-export type ApiResponse<TResponse> = AxiosResponse<TResponse>;
+export type ApiResponse<TResponse> = TResponse;

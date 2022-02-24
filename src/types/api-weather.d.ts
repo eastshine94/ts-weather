@@ -10,6 +10,8 @@ interface WeatherDetail {
 export type WeatherGetParams = null;
 export interface WeatherGetQueries {
   q?: string;
+  lon?: number;
+  lat?: number;
 }
 
 export interface WeatherGetPayload {
