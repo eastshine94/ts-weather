@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GlobalContextWrapper from 'context/GlobalContextWrapper';
-import Home from 'pages/Home';
 import ReactQueryTest from 'pages/ReactQueryTest';
+import Home from 'pages/Home';
 
 function App() {
   return (
