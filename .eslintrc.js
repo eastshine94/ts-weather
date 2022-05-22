@@ -77,6 +77,7 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 'off',
     // override: airbnb react-a11y -> jsx-a11y
     'jsx-a11y/no-noninteractive-element-interactions': 'off',
+    'import/prefer-default-export': 'off',
     'react-hooks/exhaustive-deps': [
       'warn',
       {
@@ -86,6 +87,7 @@ module.exports = {
   },
   ignorePatterns: [
     '.*',
+    '*.test.js',
     '!.config.js',
     '*.config.ts',
     '!.eslintrc.js',
