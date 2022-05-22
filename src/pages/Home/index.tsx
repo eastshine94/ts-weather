@@ -1,16 +1,18 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-alert */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { fetchWeather } from 'services/weather-service';
-import { INIT_REGION_DATA } from 'lib/constants';
+import { INIT_REGION_DATA, RegionData } from 'lib/constants';
 import { getSessionItem, removeSessionItem, setSessionItem } from 'lib/storage';
 import { WeatherGetQueries } from 'types/api-weather';
 import InputArea from './components/InputArea';
+import RegionBox from './components/RegionBox';
 
 export default function Home() {
-  const [regions, setRegions] = useState<typeof INIT_REGION_DATA>([]);
+  const ref = useRef(false);
+  const [regions, setRegions] = useState<RegionData[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const params = null;
   const queries: WeatherGetQueries = Array.from(searchParams.entries()).reduce(
@@ -21,8 +23,16 @@ export default function Home() {
     {}
   );
 
-  const handleRegionClick = (region: string) => {
-    setSearchParams({ q: region });
+  const handleEditClick = (q: string, value: string) => {
+    if (!value.trim()) {
+      window.alert('1글자 이상 입력해야 합니다.');
+      return;
+    }
+    const newRegions = regions.map((region) => {
+      return region.q !== q ? region : { ...region, name: value };
+    });
+    setSessionItem('regions', newRegions);
+    setRegions(newRegions);
   };
 
   const handleDeleteClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -59,7 +69,8 @@ export default function Home() {
   const data = uqFetch?.data;
 
   useEffect(() => {
-    const savedRegions = getSessionItem<typeof INIT_REGION_DATA>('regions');
+    ref.current = true;
+    const savedRegions = getSessionItem<RegionData[]>('regions');
     setRegions(savedRegions || INIT_REGION_DATA);
   }, []);
 
@@ -68,23 +79,12 @@ export default function Home() {
       <div className="flex">
         <div className="mr-4 min-h-[30px] min-w-[60px]">
           {regions.map((region) => (
-            <div
-              key={region.name}
-              onClick={() => {
-                handleRegionClick(region.q as string);
-              }}
-              className="relative cursor-pointer p-4 border border-orange-800"
-            >
-              {region.name}
-              <div
-                className="absolute top-0 right-0"
-                onClick={handleDeleteClick}
-                data-q={region.q}
-                data-name={region.name}
-              >
-                X
-              </div>
-            </div>
+            <RegionBox
+              key={region.q}
+              region={region}
+              handleEditClick={handleEditClick}
+              handleDeleteClick={handleDeleteClick}
+            />
           ))}
         </div>
 

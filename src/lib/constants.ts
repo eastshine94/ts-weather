@@ -1,6 +1,6 @@
 import { WeatherGetQueries } from 'types/api-weather';
 
-interface RegionData extends WeatherGetQueries {
+export interface RegionData extends WeatherGetQueries {
   name: string;
 }
 
@@ -14,5 +14,3 @@ export const INIT_REGION_DATA: RegionData[] = [
   { q: 'ulsan', name: '울산' },
   { q: 'sejong', name: '세종' },
 ];
-
-export default { INIT_REGION_DATA };
