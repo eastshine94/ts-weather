@@ -39,7 +39,7 @@ export default function Home() {
     event.preventDefault();
     event.stopPropagation();
     const { q, name } = event.currentTarget.dataset;
-    if (window.confirm(`${name as string}을(를) 삭제하시겠습니까?`)) {
+    if (window.confirm(`${name as string}을(를) 삭제하시겠습니까??`)) {
       const newRegions = regions.filter((region) => region.q !== q);
       if (newRegions.length === 0) {
         removeSessionItem('regions');
